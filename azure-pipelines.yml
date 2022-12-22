@@ -20,7 +20,7 @@ stages:
     - task: Docker@2
       displayName: Build an image
       inputs:
-        containerRegistry: 'publicrepo'
+        containerRegistry: 'vigneshwarasacr'
         repository: '$(imageRepo)'
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
