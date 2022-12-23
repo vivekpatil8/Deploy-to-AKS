@@ -59,7 +59,7 @@ stages:
           secretName: '$(acrsecret)'
           dockerRegistryEndpoint: 'vamshiacr'
        - task: KubernetesManifest@0
-        inputs:
+         inputs:
           action: 'deploy'
           kubernetesServiceConnection: 'dev'
           namespace: 'dev'
