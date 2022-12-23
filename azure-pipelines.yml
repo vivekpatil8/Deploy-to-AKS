@@ -58,16 +58,17 @@ stages:
           secretType: 'dockerRegistry'
           secretName: '$(acrsecret)'
           dockerRegistryEndpoint: 'vamshiacr'
-      - task: KubernetesManifest@0
+       - task: KubernetesManifest@0
         inputs:
           action: 'deploy'
           kubernetesServiceConnection: 'dev'
           namespace: 'dev'
           manifests: |
-            $(Pipeline.Workspace)/manifests/deployment.yml
-            $(Pipeline.Workspace)/manifests/service.yml
+            $(Pipeline.Workspace)/manifests/deployment.yml           
           imagePullSecrets: |
             $(acrsecret)
+          containers: |
+            vigneshwarasacr.azurecr.io/acr:$(tag)
 
 
         
