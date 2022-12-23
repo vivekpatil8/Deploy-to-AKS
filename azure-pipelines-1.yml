@@ -84,19 +84,12 @@ stages:
           kubernetesServiceConnection: 'dev'
           namespace: 'default'
           manifests: |
-            '$(Pipeline.Workspace)/manifests/deployment.yml'
+            $(Pipeline.Workspace)/manifests/deployment.yml
             $(Pipeline.Workspace)/manifests/service.yml
           containers: 'vigneshwarasacr.azurecr.io/acr:latest'
-          imagePullSecrets: '$(acrsecret)'
-          imagePullPolicy: 'Always'
+          imagePullSecrets: '$(acrsecret)'   
           rolloutStatusTimeout: '1000'
-      - task: KubernetesManifest@0
-        inputs:
-          action: 'deploy'
-          kubernetesServiceConnection: 'dev'
-          namespace: 'dev1'
-          manifests: '$(Pipeline.Workspace)/manifests/deployment.yml'
-          rolloutStatusTimeout: '1000'
+
 
 
 
