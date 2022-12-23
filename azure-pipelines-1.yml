@@ -54,7 +54,7 @@ stages:
         inputs:
           action: 'createSecret'
           kubernetesServiceConnection: 'dev'
-          namespace: 'dev1'
+          namespace: 'default'
           secretType: 'dockerRegistry'
           secretName: '$(acrsecret)'
           dockerRegistryEndpoint: 'vamshiacr'
@@ -78,6 +78,18 @@ stages:
       #     manifests: '$(Pipeline.Workspace)/manifests/deployment.yml'
       #     containers: 'vigneshwarasacr.azurecr.io/acr:$(tag)'
       #     imagePullSecrets: '$(acrsecret)'
+      - task: KubernetesManifest@0
+        inputs:
+          action: 'deploy'
+          kubernetesServiceConnection: 'dev'
+          namespace: 'default'
+          manifests: |
+            '$(Pipeline.Workspace)/manifests/deployment.yml'
+            $(Pipeline.Workspace)/manifests/service.yml
+          containers: 'vigneshwarasacr.azurecr.io/acr:latest'
+          imagePullSecrets: '$(acrsecret)'
+          imagePullPolicy: 'Always'
+          rolloutStatusTimeout: '1000'
       - task: KubernetesManifest@0
         inputs:
           action: 'deploy'
