@@ -84,7 +84,7 @@ stages:
           kubernetesServiceConnection: 'dev'
           namespace: 'dev1'
           manifests: '$(Pipeline.Workspace)/manifests/deployment.yml'
-          rolloutStatusTimeout: '30'
+          rolloutStatusTimeout: '1000'
 
 
 
