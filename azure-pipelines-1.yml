@@ -50,14 +50,14 @@ stages:
           buildType: 'current'
           artifactName: 'manifests'
           targetPath: '$(Pipeline.Workspace)/manifests'
-      - task: KubernetesManifest@0
-        inputs:
-          action: 'createSecret'
-          kubernetesServiceConnection: 'dev'
-          namespace: 'dev'
-          secretType: 'dockerRegistry'
-          secretName: '$(acrsecret)'
-          dockerRegistryEndpoint: 'vamshiacr'
+      # - task: KubernetesManifest@0
+      #   inputs:
+      #     action: 'createSecret'
+      #     kubernetesServiceConnection: 'dev'
+      #     namespace: 'dev'
+      #     secretType: 'dockerRegistry'
+      #     secretName: '$(acrsecret)'
+      #     dockerRegistryEndpoint: 'vamshiacr'
 
       - task: KubernetesManifest@0
         inputs:
@@ -68,7 +68,7 @@ stages:
             $(Pipeline.Workspace)/manifests/deployment.yml
             $(Pipeline.Workspace)/manifests/service.yml
           containers: 'vigneshwarasacr.azurecr.io/acr:latest'
-          imagePullSecrets: '$(acrsecret)'   
+          # imagePullSecrets: '$(acrsecret)'   
         
 
 
