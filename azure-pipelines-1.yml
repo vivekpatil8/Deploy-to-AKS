@@ -69,7 +69,7 @@ stages:
             $(Pipeline.Workspace)/manifests/service.yml
           containers: 'vigneshwarasacr.azurecr.io/acr:latest'
           imagePullSecrets: '$(acrsecret)'   
-          rolloutStatusTimeout: '1000'
+        
 
 
 
