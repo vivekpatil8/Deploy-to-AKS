@@ -58,6 +58,15 @@ stages:
           secretType: 'dockerRegistry'
           secretName: '$(acrsecret)'
           dockerRegistryEndpoint: 'vamshiacr'
+          
+      # - task: KubernetesManifest@0
+      #   inputs:
+      #     action: 'createSecret'
+      #     kubernetesServiceConnection: 'dev'
+      #     namespace: 'default'
+      #     secretType: 'dockerRegistry'
+      #     secretName: '$(acrsecret)'
+      #     dockerRegistryEndpoint: 'vamshiacr'
 
       - task: KubernetesManifest@0
         inputs:
