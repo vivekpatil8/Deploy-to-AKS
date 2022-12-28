@@ -65,6 +65,8 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'dev'
         namespace: 'default'
-        manifests: 'repla'
+        manifests: |
+            $(Pipeline.Workspace)/manifests/deployment.yml
+            $(Pipeline.Workspace)/manifests/service.yml
         containers: 'vigneshwarasacr.azurecr.io/acr:latest'
         imagePullSecrets: '$(acrsecret)'
