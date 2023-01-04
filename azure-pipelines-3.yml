@@ -56,7 +56,7 @@ stages:
       inputs:
         action: 'createSecret'
         kubernetesServiceConnection: 'dev'
-        namespace: 'default'
+        namespace: 'dev'
         secretType: 'dockerRegistry'
         secretName: '$(acrsecret)'
         dockerRegistryEndpoint: 'vamshiacr'
@@ -64,7 +64,7 @@ stages:
       inputs:
         action: 'deploy'
         kubernetesServiceConnection: 'dev'
-        namespace: 'default'
+        namespace: 'dev'
         manifests: |
             $(Pipeline.Workspace)/manifests/deployment.yml
             $(Pipeline.Workspace)/manifests/service.yml
