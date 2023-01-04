@@ -1,3 +1,7 @@
+# Docker
+# Build a Docker image
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
 trigger:
 - main
 
@@ -5,7 +9,6 @@ resources:
 - repo: self
 
 variables:
-  imageRepo: sampleapp
   tag: '$(Build.BuildId)'
 
 stages:
@@ -17,7 +20,6 @@ stages:
     pool:
       vmImage: ubuntu-latest
     steps:
-    
     - task: Docker@2
       inputs:
         containerRegistry: 'vamshiacr'
@@ -25,15 +27,15 @@ stages:
         command: 'buildAndPush'
         Dockerfile: '$(Build.SourcesDirectory)/app/Dockerfile'
         tags: |
-          $(tag)
+          $(Build.BuildId)
           latest
-    
+
     - task: PublishPipelineArtifact@1
       inputs:
         targetPath: '$(Pipeline.Workspace)/s/kubernetes'
         artifact: 'manifests'
         publishLocation: 'pipeline'
-
+    
 - stage: Deploy
   displayName: Deploy to Dev
   dependsOn: Build
@@ -45,40 +47,30 @@ stages:
     pool: 
       vmImage: ubuntu-latest
     steps:
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          buildType: 'current'
-          artifactName: 'manifests'
-          targetPath: '$(Pipeline.Workspace)/manifests'
-      - task: KubernetesManifest@0
-        inputs:
-          action: 'createSecret'
-          kubernetesServiceConnection: 'dev'
-          namespace: 'dev'
-          secretType: 'dockerRegistry'
-          secretName: '$(acrsecret)'
-          dockerRegistryEndpoint: 'vamshiacr'
-      #  - task: KubernetesManifest@0
-      #    inputs:
-      #     action: 'deploy'
-      #     kubernetesServiceConnection: 'dev'
-      #     namespace: 'dev'
-      #     manifests: |
-      #       $(Pipeline.Workspace)/manifests/deployment.yml           
-      #     imagePullSecrets: |
-      #       $(acrsecret)
-      #     containers: |
-      #       vigneshwarasacr.azurecr.io/acr:$(tag)
-      - task: KubernetesManifest@0
-        inputs:
-          action: 'deploy'
-          kubernetesServiceConnection: 'aksconnection'
-          namespace: 'dev'
-          manifests: |
+    - task: DownloadPipelineArtifact@2
+      inputs:
+        buildType: 'current'
+        artifactName: 'manifests'
+        targetPath: '$(Pipeline.Workspace)/manifests'
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'createSecret'
+        kubernetesServiceConnection: 'dev'
+        namespace: 'default'
+        secretType: 'dockerRegistry'
+        secretName: '$(acrsecret)'
+        dockerRegistryEndpoint: 'vamshiacr'
+    - task: KubernetesManifest@0
+      inputs:
+        action: 'deploy'
+        kubernetesServiceConnection: 'dev'
+        namespace: 'default'
+        manifests: |
             $(Pipeline.Workspace)/manifests/deployment.yml
             $(Pipeline.Workspace)/manifests/service.yml
-          containers: 'vigneshwarasacr.azurecr.io/acr:$(tag)'
-          imagePullSecrets: '$(acrsecret)'
+            $(Pipeline.Workspace)/manifests/scaling.yml
+        containers: 'vigneshwarasacr.azurecr.io/acr:latest'
+        imagePullSecrets: '$(acrsecret)'
       
 
 
