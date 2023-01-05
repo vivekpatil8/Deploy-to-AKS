@@ -22,4 +22,14 @@ spec:
               cpu: 500m
             requests:
               cpu: 250m
-          
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: sampleapp
+spec:
+    type: LoadBalancer
+    ports:
+    - port: 80 
+    selector:
+        app: sampleapp          
