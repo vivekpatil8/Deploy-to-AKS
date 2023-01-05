@@ -9,4 +9,4 @@ spec:
       name: sampleapp
     minReplicas: 1
     maxReplicas: 5
-    targetCPUUtilizationPercentage: 1
+    targetCPUUtilizationPercentage: 2
