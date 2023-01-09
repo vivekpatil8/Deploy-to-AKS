@@ -34,22 +34,22 @@ stages:
         artifact: 'manifests'
         publishLocation: 'pipeline'
 
-- stage: Deploy
-  displayName: Deploy to Dev
-  dependsOn: Build
-  variables:
-    acrsecret: k8sexamplesacrauth
-  jobs: 
-  - job: Deploy
-    displayName: Deploy to AKS
-    pool: 
-      vmImage: ubuntu-latest
-    steps:
-      - task: DownloadPipelineArtifact@2
-        inputs:
-          buildType: 'current'
-          artifactName: 'manifests'
-          targetPath: '$(Pipeline.Workspace)/manifests'
+# - stage: Deploy
+#   displayName: Deploy to Dev
+#   dependsOn: Build
+#   variables:
+#     acrsecret: k8sexamplesacrauth
+#   jobs: 
+#   - job: Deploy
+#     displayName: Deploy to AKS
+#     pool: 
+#       vmImage: ubuntu-latest
+#     steps:
+#       - task: DownloadPipelineArtifact@2
+#         inputs:
+#           buildType: 'current'
+#           artifactName: 'manifests'
+#           targetPath: '$(Pipeline.Workspace)/manifests'
       # - task: KubernetesManifest@0
       #   inputs:
       #     action: 'createSecret'
