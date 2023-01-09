@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: aks-helloworld-one
-        image: mcr.microsoft.com/azuredocs/aks-helloworld:v1
+        image: vigneshwarasacr.azurecr.io/acr:latest
         ports:
         - containerPort: 80
 ---
