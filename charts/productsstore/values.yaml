@@ -1,5 +1,5 @@
 namespace: helm-namespace
-buildId: 8 # will be incremented in the CI/CD
+buildId: 8 # will be incremented 
 web:
   image:
     dockerHubId: houssemdocker
