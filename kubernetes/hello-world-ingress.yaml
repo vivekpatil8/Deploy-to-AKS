@@ -15,17 +15,17 @@ spec:
   - host: web1.vivekpatil8.tk
     http:
       paths:
-      - path: /
+      - path: /aks-helloworld-one
         pathType: Prefix
         backend:
           service:
             name: aks-helloworld-one
             port:
               number: 80
-- host: web2.vivekpatil8.tk
+  - host: web2.vivekpatil8.tk
     http:
       paths:
-      - path: /
+      - path: /aks-helloworld-two
         pathType: Prefix
         backend:
           service:
