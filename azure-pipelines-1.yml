@@ -34,34 +34,34 @@ stages:
         artifact: 'manifests'
         publishLocation: 'pipeline'
         
-    - task: HelmDeploy@0
-      inputs:
-        connectionType: 'Azure Resource Manager'
-        azureSubscription: 'Free Trial (e40642cd-12da-4980-b469-f3e70ac9b7ae)'
-        azureResourceGroup: 'vigneshwaras-RG'
-        kubernetesCluster: 'vigneshwaras-AKS'
-        namespace: 'ingress-basic'
-        command: 'get'
-        arguments: 'update'
+    # - task: HelmDeploy@0
+    #   inputs:
+    #     connectionType: 'Azure Resource Manager'
+    #     azureSubscription: 'Free Trial (e40642cd-12da-4980-b469-f3e70ac9b7ae)'
+    #     azureResourceGroup: 'vigneshwaras-RG'
+    #     kubernetesCluster: 'vigneshwaras-AKS'
+    #     namespace: 'ingress-basic'
+    #     command: 'get'
+    #     arguments: 'update'
 
-    - task: HelmDeploy@0
-      inputs:
-        connectionType: 'Kubernetes Service Connection'
-        kubernetesServiceConnection: 'dev'
-        namespace: 'ingress-basic'
-        command: 'get'
-        arguments: 'update'
-    
+    # - task: HelmDeploy@0
+    #   inputs:
+    #     connectionType: 'Kubernetes Service Connection'
+    #     kubernetesServiceConnection: 'dev'
+    #     namespace: 'ingress-basic'
+    #     command: 'get'
+    #     arguments: 'update'
     - task: HelmDeploy@0
       inputs:
         connectionType: 'Azure Resource Manager'
-        azureSubscription: 'Free Trial (e40642cd-12da-4980-b469-f3e70ac9b7ae)'
+        azureSubscription: 'Free Trial(1)(e40642cd-12da-4980-b469-f3e70ac9b7ae)'
         azureResourceGroup: 'vigneshwaras-RG'
         kubernetesCluster: 'vigneshwaras-AKS'
         namespace: 'ingress-basic'
         command: 'upgrade'
         chartType: 'Name'
         chartName: 'ingress-nginx ingress-nginx/ingress-nginx'
+        releaseName: 'abc'
 
 # - stage: Deploy
 #   displayName: Deploy to Dev
