@@ -15,7 +15,7 @@ spec:
   - host: web1.vivekpatil8.tk
     http:
       paths:
-      - path: /aks-helloworld-one
+      - path: /
         pathType: Prefix
         backend:
           service:
