@@ -1,5 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
-WORKDIR /app
+WORKDIR /
 
 # Copy csproj and restore as distinct layers
 COPY /app/SampleWebApp/*.csproj .
